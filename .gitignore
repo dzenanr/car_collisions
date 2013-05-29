@@ -1,0 +1,7 @@
+.children
+pubspec.lock
+packages
+*.js
+*.js.deps
+*.js.map
+*~
