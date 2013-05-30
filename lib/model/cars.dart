@@ -1,6 +1,6 @@
 part of car_collisions;
 
-abstract class Car {
+abstract class Vehicle {
   static const num WIDTH = 75;
   static const num HEIGHT = 30;
 
@@ -13,7 +13,7 @@ abstract class Car {
   num y;
   String colorCode;
 
-  Car(this.distanceLimitWidth, this.distanceLimitHeight) {
+  Vehicle(this.distanceLimitWidth, this.distanceLimitHeight) {
     width = WIDTH;
     height = HEIGHT;
     x = randomNum(distanceLimitWidth - width);
@@ -21,11 +21,11 @@ abstract class Car {
   }
 }
 
-class NonRedCar extends Car {
+class Car extends Vehicle {
   num dx;
   num dy;
 
-  NonRedCar(num distanceLimitWidth, num distanceLimitHeight, int speedLimit) :
+  Car(num distanceLimitWidth, num distanceLimitHeight, int speedLimit) :
     super(distanceLimitWidth, distanceLimitHeight) {
     colorCode = randomColorCode();
     dx = randomNum(speedLimit);
@@ -36,7 +36,7 @@ class NonRedCar extends Car {
     x += dx;
     y += dy;
     if (redCar.big) redCar.accident(this);
-    for (NonRedCar car in cars) {
+    for (Car car in cars) {
       if (car != this) {
         car.accident(this);
       }
@@ -45,7 +45,7 @@ class NonRedCar extends Car {
     if (y > distanceLimitHeight || y < 0) dy = -dy;
   }
 
-  accident(NonRedCar car) {
+  accident(Car car) {
     if (car.x < x  && car.y < y) {
       if (car.x + car.width >= x && car.y + car.height >= y) {
         dx = -dx; dy = -dy;
@@ -70,7 +70,7 @@ class NonRedCar extends Car {
   }
 }
 
-class RedCar extends Car {
+class RedCar extends Vehicle {
   static const num SMALL_WIDTH = 35;
   static const num SALL_HEIGHT = 14;
   static const String BIG_COLOR_CODE = '#ff0000';
@@ -90,15 +90,15 @@ class RedCar extends Car {
   bigger() {
     if (small) {
       small = false;
-      width = Car.WIDTH;
-      height = Car.HEIGHT;
+      width = Vehicle.WIDTH;
+      height = Vehicle.HEIGHT;
       colorCode = BIG_COLOR_CODE;
       collision = false;
       movable = true;
     }
   }
 
-  smaller(Car car) {
+  smaller() {
     if (big) {
       small = true;
       width = SMALL_WIDTH;
@@ -110,16 +110,16 @@ class RedCar extends Car {
     }
   }
 
-  accident(Car car) {
+  accident(Vehicle car) {
     if (big) {
       if (car.x < x  && car.y < y) {
-        if (car.x + car.width >= x && car.y + car.height >= y) smaller(car);
+        if (car.x + car.width >= x && car.y + car.height >= y) smaller();
       } else if (car.x > x  && car.y < y) {
-        if (car.x <= x + width && car.y + car.height >= y)     smaller(car);
+        if (car.x <= x + width && car.y + car.height >= y)     smaller();
       } else if (car.x < x  && car.y > y) {
-        if (car.x + car.width >= x && car.y <= y + height)     smaller(car);
+        if (car.x + car.width >= x && car.y <= y + height)     smaller();
       } else if (car.x > x  && car.y > y) {
-        if (car.x <= x + width && car.y <= y + height)         smaller(car);
+        if (car.x <= x + width && car.y <= y + height)         smaller();
       }
     }
   }
@@ -127,23 +127,22 @@ class RedCar extends Car {
 
 class Cars {
   RedCar redCar;
-  var _nonRedCarList = new List<NonRedCar>();
+  var _carList = new List<Car>();
 
   Cars(int count, num distanceLimitWidth, num distanceLimitHeight, int speedLimit) {
     redCar = new RedCar(distanceLimitWidth, distanceLimitHeight);
     for (var i = 0; i < count - 1; i++) {
-      var nonRedCar =
-          new NonRedCar(distanceLimitWidth, distanceLimitHeight, speedLimit);
-      _nonRedCarList.add(nonRedCar);
+      var car = new Car(distanceLimitWidth, distanceLimitHeight, speedLimit);
+      _carList.add(car);
     }
   }
 
-  int get count => _nonRedCarList.length + 1;
+  int get count => _carList.length + 1;
 
-  void add(NonRedCar car) {
-    _nonRedCarList.add(car);
+  void add(Car car) {
+    _carList.add(car);
   }
 
-  Iterator get iterator => _nonRedCarList.iterator;
+  Iterator get iterator => _carList.iterator;
 }
 
