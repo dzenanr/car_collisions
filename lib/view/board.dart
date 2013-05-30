@@ -1,7 +1,7 @@
 part of car_collisions;
 
 class Board {
-  static const int CAR_COUNT = 9; // including the red car
+  static const int CAR_COUNT = 10; // including the red car
   static const int SPEED_LIMIT = 2; // upper limit in random speed
   static const int TIMER_INTERVAL = 8; // in ms
 
@@ -15,10 +15,16 @@ class Board {
     context = canvas.getContext('2d');
     cars = new Cars(CAR_COUNT, canvas.width, canvas.height, SPEED_LIMIT);
     redCar = cars.redCar;
+    AudioElement collisionSound = query('#collision-sound');
+    LabelElement carCountLabel = query('#car-count');
+    carCountLabel.text = cars.count.toString();
+    LabelElement collisionCountLabel = query('#collision-count');
+    LabelElement messageLabel = query('#message');
     canvas.document.onMouseDown.listen((MouseEvent e) {
-      if (redCar.small) redCar.bigger();
+      if (redCar.collisionCount < CAR_COUNT) {
+        if (redCar.small) redCar.bigger();
+      } else messageLabel.text = 'Too many collisions.';
     });
-
     canvas.document.onMouseMove.listen((MouseEvent e) {
       if (redCar.movable) {
         redCar.x = e.offset.x - Car.WIDTH  / 2;
@@ -27,6 +33,13 @@ class Board {
         if (redCar.x < 0)             redCar.x = 20 - redCar.width;
         if (redCar.y > canvas.height) redCar.y = canvas.height - 20;
         if (redCar.y < 0)             redCar.y = 20 - redCar.height;
+      } else if (redCar.collision) {
+        collisionSound.play();
+        redCar.collision = false;
+        var car = new NonRedCar(canvas.width, canvas.height, SPEED_LIMIT);
+        cars.add(car);
+        carCountLabel.text = cars.count.toString();
+        collisionCountLabel.text = redCar.collisionCount.toString();
       }
     });
     // Redraw every TIMER_INTERVAL ms.

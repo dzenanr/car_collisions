@@ -18,7 +18,6 @@ class Board {
     canvas.document.onMouseDown.listen((MouseEvent e) {
       if (redCar.small) redCar.bigger();
     });
-
     canvas.document.onMouseMove.listen((MouseEvent e) {
       if (redCar.movable) {
         redCar.x = e.offset.x - Car.WIDTH  / 2;

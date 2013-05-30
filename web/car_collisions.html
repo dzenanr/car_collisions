@@ -3,16 +3,37 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Car Vollisions</title>
+    <title>Car Collisions</title>
+    <link rel="stylesheet" href="css/car_collisions.css">
   </head>
   <body>
     <h1>Car Collisions</h1>
-    
+
+    <p>
+      A game with moving cars of different colors,
+      whose objective is to move the red car,
+      by moving your mouse, with few collisions.
+      <br/>
+      If the red car is hit, it changes the color and size.
+      As a penalty, a new car appears.
+      In order to revive the red car, click on the board.
+    </p>
+
+    <section>
+      cars <label id="car-count" class="marker">0</label>
+      collisions <label id="collision-count" class="marker">0</label>
+      <label id="message" class="marker"></label>
+    </section>
+
     <section>
       <canvas id="canvas" width="720" height="560">
         Canvas is not supported in your browser.
       </canvas>
     </section>
+
+    <audio id="collision-sound">
+      <source src="sound/collision.ogg" type="audio/ogg"/>
+    </audio>
 
     <script type="application/dart" src="car_collisions.dart"></script>
     <script src="packages/browser/dart.js"></script>

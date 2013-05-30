@@ -35,17 +35,17 @@ class NonRedCar extends Car {
   move(RedCar redCar, Cars cars) {
     x += dx;
     y += dy;
-    if (redCar.big) redCar.collision(this);
+    if (redCar.big) redCar.accident(this);
     for (Car car in cars) {
       if (car != this) {
-        car.collision(this);
+        car.accident(this);
       }
     }
     if (x > distanceLimitWidth || x < 0) dx = -dx;
     if (y > distanceLimitHeight || y < 0) dy = -dy;
   }
 
-  collision(Car car) {
+  accident(Car car) {
     if (car.x < x  && car.y < y) {
       if (car.x + car.width >= x && car.y + car.height >= y) {
         dx = -dx; dy = -dy;
@@ -79,6 +79,8 @@ class RedCar extends Car {
   bool small = false;
   bool get big => !small;
   bool movable = true;
+  bool collision = false;
+  int collisionCount = 0;
 
   RedCar(num distanceLimitWidth, num distanceLimitHeight) :
     super(distanceLimitWidth, distanceLimitHeight) {
@@ -91,6 +93,7 @@ class RedCar extends Car {
       width = Car.WIDTH;
       height = Car.HEIGHT;
       colorCode = BIG_COLOR_CODE;
+      collision = false;
       movable = true;
     }
   }
@@ -101,11 +104,13 @@ class RedCar extends Car {
       width = SMALL_WIDTH;
       height = SALL_HEIGHT;
       colorCode = SMAL_COLOR_CODE;
+      collision = true;
+      collisionCount++;
       movable = false;
     }
   }
 
-  collision(Car car) {
+  accident(Car car) {
     if (big) {
       if (car.x < x  && car.y < y) {
         if (car.x + car.width >= x && car.y + car.height >= y) smaller(car);
@@ -133,7 +138,7 @@ class Cars {
     }
   }
 
-  int get length => _nonRedCarList.length;
+  int get count => _nonRedCarList.length + 1;
 
   void add(NonRedCar car) {
     _nonRedCarList.add(car);
