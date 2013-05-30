@@ -9,4 +9,7 @@
   If the red car is hit, it changes the color and size. 
   As a penalty, a new car appears.
   In order to revive the red car, click on the board. 
+  
+  A simpler version of 
+  [Collision Clones] (https://github.com/dzenanr/collision_clones).
 
