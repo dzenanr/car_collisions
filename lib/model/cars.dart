@@ -36,7 +36,7 @@ class NonRedCar extends Car {
     x += dx;
     y += dy;
     if (redCar.big) redCar.accident(this);
-    for (Car car in cars) {
+    for (NonRedCar car in cars) {
       if (car != this) {
         car.accident(this);
       }
@@ -45,7 +45,7 @@ class NonRedCar extends Car {
     if (y > distanceLimitHeight || y < 0) dy = -dy;
   }
 
-  accident(Car car) {
+  accident(NonRedCar car) {
     if (car.x < x  && car.y < y) {
       if (car.x + car.width >= x && car.y + car.height >= y) {
         dx = -dx; dy = -dy;

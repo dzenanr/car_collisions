@@ -30,7 +30,7 @@ Create a New Repo at GitHub
 (without README, since cloning will not be used).
 Repository Name: car_collisions
 Description: 
-  A canvas game with moving cars of different colors, 
+  A game with moving cars of different colors, 
   whose objective is to move the red car without collisions.
       
 Next steps:

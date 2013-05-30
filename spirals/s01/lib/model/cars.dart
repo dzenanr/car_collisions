@@ -35,17 +35,17 @@ class NonRedCar extends Car {
   move(RedCar redCar, Cars cars) {
     x += dx;
     y += dy;
-    if (redCar.big) redCar.collision(this);
-    for (Car car in cars) {
+    if (redCar.big) redCar.accident(this);
+    for (NonRedCar car in cars) {
       if (car != this) {
-        car.collision(this);
+        car.accident(this);
       }
     }
     if (x > distanceLimitWidth || x < 0) dx = -dx;
     if (y > distanceLimitHeight || y < 0) dy = -dy;
   }
 
-  collision(Car car) {
+  accident(NonRedCar car) {
     if (car.x < x  && car.y < y) {
       if (car.x + car.width >= x && car.y + car.height >= y) {
         dx = -dx; dy = -dy;
@@ -105,7 +105,7 @@ class RedCar extends Car {
     }
   }
 
-  collision(Car car) {
+  accident(Car car) {
     if (big) {
       if (car.x < x  && car.y < y) {
         if (car.x + car.width >= x && car.y + car.height >= y) smaller(car);
