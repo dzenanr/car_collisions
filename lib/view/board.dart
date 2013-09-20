@@ -3,7 +3,6 @@ part of car_collisions;
 class Board {
   static const int CAR_COUNT = 10; // including the red car
   static const int SPEED_LIMIT = 2; // upper limit in random speed
-  static const int TIMER_INTERVAL = 8; // in ms
 
   CanvasElement canvas = query('#canvas');
   CanvasRenderingContext2D context;
@@ -42,36 +41,43 @@ class Board {
         collisionCountLabel.text = redCar.collisionCount.toString();
       }
     });
-    // Redraw every TIMER_INTERVAL ms.
-    new Timer.periodic(const Duration(milliseconds: TIMER_INTERVAL),
-        (t) => displayCars());
+    window.animationFrame.then(gameLoop);
+  }
+
+  gameLoop(num delta) {
+    displayCars();
+    window.animationFrame.then(gameLoop);
   }
 
   displayCars() {
     clear() {
-      context.fillStyle = "#ffffff";
-      context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+      context
+        ..fillStyle = "#ffffff"
+        ..fillRect(0, 0, context.canvas.width, context.canvas.height);
     }
 
     displayCar(Vehicle car) {
-      context.beginPath();
-      context.fillStyle = car.colorCode;
-      context.strokeStyle = 'black';
-      context.lineWidth = 2;
+      context
+        ..beginPath()
+        ..fillStyle = car.colorCode
+        ..strokeStyle = 'black'
+        ..lineWidth = 2;
       roundedCornersRect(context, car.x, car.y, car.x + car.width,
           car.y + car.height, 10);
-      context.fill();
-      context.stroke();
-      context.closePath();
+      context
+        ..fill()
+        ..stroke()
+        ..closePath();
       // wheels
-      context.beginPath();
-      context.fillStyle = '#000000';
-      context.rect(car.x + 12, car.y - 3, 14, 6);
-      context.rect(car.x + car.width - 26, car.y - 3, 14, 6);
-      context.rect(car.x + 12, car.y + car.height - 3, 14, 6);
-      context.rect(car.x + car.width - 26, car.y + car.height - 3, 14, 6);
-      context.fill();
-      context.closePath();
+      context
+        ..beginPath()
+        ..fillStyle = '#000000'
+        ..rect(car.x + 12, car.y - 3, 14, 6)
+        ..rect(car.x + car.width - 26, car.y - 3, 14, 6)
+        ..rect(car.x + 12, car.y + car.height - 3, 14, 6)
+        ..rect(car.x + car.width - 26, car.y + car.height - 3, 14, 6)
+        ..fill()
+        ..closePath();
     }
 
     clear();
