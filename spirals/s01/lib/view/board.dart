@@ -4,7 +4,7 @@ class Board {
   static const int CAR_COUNT = 9; // including the red car
   static const int SPEED_LIMIT = 2; // upper limit in random speed
 
-  CanvasElement canvas = query('#canvas');
+  CanvasElement canvas = querySelector('#canvas');
   CanvasRenderingContext2D context;
 
   Cars cars;

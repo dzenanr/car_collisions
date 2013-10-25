@@ -4,7 +4,7 @@ class Board {
   static const int CAR_COUNT = 10; // including the red car
   static const int SPEED_LIMIT = 2; // upper limit in random speed
 
-  CanvasElement canvas = query('#canvas');
+  CanvasElement canvas = querySelector('#canvas');
   CanvasRenderingContext2D context;
 
   Cars cars;
@@ -14,11 +14,11 @@ class Board {
     context = canvas.getContext('2d');
     cars = new Cars(CAR_COUNT, canvas.width, canvas.height, SPEED_LIMIT);
     redCar = cars.redCar;
-    AudioElement collisionSound = query('#collision-sound');
-    LabelElement carCountLabel = query('#car-count');
+    AudioElement collisionSound = querySelector('#collision-sound');
+    LabelElement carCountLabel = querySelector('#car-count');
     carCountLabel.text = cars.count.toString();
-    LabelElement collisionCountLabel = query('#collision-count');
-    LabelElement messageLabel = query('#message');
+    LabelElement collisionCountLabel = querySelector('#collision-count');
+    LabelElement messageLabel = querySelector('#message');
     canvas.document.onMouseDown.listen((MouseEvent e) {
       if (redCar.collisionCount < CAR_COUNT) {
         if (redCar.small) redCar.bigger();
