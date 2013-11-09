@@ -14,10 +14,10 @@ class Board {
     context = canvas.getContext('2d');
     cars = new Cars(CAR_COUNT, canvas.width, canvas.height, SPEED_LIMIT);
     redCar = cars.redCar;
-    canvas.document.onMouseDown.listen((MouseEvent e) {
+    document.onMouseDown.listen((MouseEvent e) {
       if (redCar.small) redCar.bigger();
     });
-    canvas.document.onMouseMove.listen((MouseEvent e) {
+    document.onMouseMove.listen((MouseEvent e) {
       if (redCar.movable) {
         redCar.x = e.offset.x - Car.WIDTH  / 2;
         redCar.y = e.offset.y - Car.HEIGHT / 2;

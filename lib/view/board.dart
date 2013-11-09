@@ -19,12 +19,12 @@ class Board {
     carCountLabel.text = cars.count.toString();
     LabelElement collisionCountLabel = querySelector('#collision-count');
     LabelElement messageLabel = querySelector('#message');
-    canvas.document.onMouseDown.listen((MouseEvent e) {
+    document.onMouseDown.listen((MouseEvent e) {
       if (redCar.collisionCount < CAR_COUNT) {
         if (redCar.small) redCar.bigger();
       } else messageLabel.text = 'Too many collisions.';
     });
-    canvas.document.onMouseMove.listen((MouseEvent e) {
+    document.onMouseMove.listen((MouseEvent e) {
       if (redCar.movable) {
         redCar.x = e.offset.x - Vehicle.WIDTH  / 2;
         redCar.y = e.offset.y - Vehicle.HEIGHT / 2;
