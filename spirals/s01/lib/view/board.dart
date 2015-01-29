@@ -1,8 +1,8 @@
 part of car_collisions;
 
 class Board {
-  static const int CAR_COUNT = 9; // including the red car
-  static const int SPEED_LIMIT = 2; // upper limit in random speed
+  static const int carCount = 9; // including the red car
+  static const int speedLimit = 2; // upper limit in random speed
 
   CanvasElement canvas = querySelector('#canvas');
   CanvasRenderingContext2D context;
@@ -12,15 +12,15 @@ class Board {
 
   Board() {
     context = canvas.getContext('2d');
-    cars = new Cars(CAR_COUNT, canvas.width, canvas.height, SPEED_LIMIT);
+    cars = new Cars(carCount, canvas.width, canvas.height, speedLimit);
     redCar = cars.redCar;
     document.onMouseDown.listen((MouseEvent e) {
       if (redCar.small) redCar.bigger();
     });
     document.onMouseMove.listen((MouseEvent e) {
       if (redCar.movable) {
-        redCar.x = e.offset.x - Car.WIDTH  / 2;
-        redCar.y = e.offset.y - Car.HEIGHT / 2;
+        redCar.x = e.offset.x - Car.regularWidth  / 2;
+        redCar.y = e.offset.y - Car.regularHeight / 2;
         if (redCar.x > canvas.width)  redCar.x = canvas.width - 20;
         if (redCar.x < 0)             redCar.x = 20 - redCar.width;
         if (redCar.y > canvas.height) redCar.y = canvas.height - 20;

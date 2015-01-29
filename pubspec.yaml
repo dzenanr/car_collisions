@@ -1,5 +1,5 @@
 name: car_collisions
-version: 0.0.1
+version: 0.0.2
 author: Dzenan Ridjanovic
 description: A game with moving cars of different colors, whose objective is to move the red car without collisions.
 homepage: http://ondart.me/

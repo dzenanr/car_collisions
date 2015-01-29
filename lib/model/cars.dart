@@ -1,8 +1,9 @@
 part of car_collisions;
 
 abstract class Vehicle {
-  static const num WIDTH = 75;
-  static const num HEIGHT = 30;
+  static const num regularWidth = 75;
+  static const num regularHeight = 30;
+  static const String regularColorCode = '#ff0000';
 
   num distanceLimitWidth;
   num distanceLimitHeight;
@@ -14,8 +15,9 @@ abstract class Vehicle {
   String colorCode;
 
   Vehicle(this.distanceLimitWidth, this.distanceLimitHeight) {
-    width = WIDTH;
-    height = HEIGHT;
+    width = regularWidth;
+    height = regularHeight;
+    colorCode = regularColorCode;
     x = randomNum(distanceLimitWidth - width);
     y = randomNum(distanceLimitHeight - height);
   }
@@ -71,10 +73,9 @@ class Car extends Vehicle {
 }
 
 class RedCar extends Vehicle {
-  static const num SMALL_WIDTH = 35;
-  static const num SALL_HEIGHT = 14;
-  static const String BIG_COLOR_CODE = '#ff0000';
-  static const String SMAL_COLOR_CODE = '#000000';
+  static const num smallWidth = 35;
+  static const num smallHeight = 14;
+  static const String smallColorCode = '#000000';
 
   bool small = false;
   bool get big => !small;
@@ -83,16 +84,14 @@ class RedCar extends Vehicle {
   int collisionCount = 0;
 
   RedCar(num distanceLimitWidth, num distanceLimitHeight) :
-    super(distanceLimitWidth, distanceLimitHeight) {
-    colorCode = BIG_COLOR_CODE;
-  }
+    super(distanceLimitWidth, distanceLimitHeight);
 
   bigger() {
     if (small) {
       small = false;
-      width = Vehicle.WIDTH;
-      height = Vehicle.HEIGHT;
-      colorCode = BIG_COLOR_CODE;
+      width = Vehicle.regularWidth;
+      height = Vehicle.regularHeight;
+      colorCode = Vehicle.regularColorCode;
       collision = false;
       movable = true;
     }
@@ -101,9 +100,9 @@ class RedCar extends Vehicle {
   smaller() {
     if (big) {
       small = true;
-      width = SMALL_WIDTH;
-      height = SALL_HEIGHT;
-      colorCode = SMAL_COLOR_CODE;
+      width = smallWidth;
+      height = smallHeight;
+      colorCode = smallColorCode;
       collision = true;
       collisionCount++;
       movable = false;

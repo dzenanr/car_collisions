@@ -1,8 +1,8 @@
 part of car_collisions;
 
 class Board {
-  static const int CAR_COUNT = 10; // including the red car
-  static const int SPEED_LIMIT = 2; // upper limit in random speed
+  static const int carCount = 10; // including the red car
+  static const int speedLimit = 2; // upper limit in random speed
 
   CanvasElement canvas = querySelector('#canvas');
   CanvasRenderingContext2D context;
@@ -12,7 +12,7 @@ class Board {
 
   Board() {
     context = canvas.getContext('2d');
-    cars = new Cars(CAR_COUNT, canvas.width, canvas.height, SPEED_LIMIT);
+    cars = new Cars(carCount, canvas.width, canvas.height, speedLimit);
     redCar = cars.redCar;
     AudioElement collisionSound = querySelector('#collision-sound');
     LabelElement carCountLabel = querySelector('#car-count');
@@ -20,14 +20,14 @@ class Board {
     LabelElement collisionCountLabel = querySelector('#collision-count');
     LabelElement messageLabel = querySelector('#message');
     document.onMouseDown.listen((MouseEvent e) {
-      if (redCar.collisionCount < CAR_COUNT) {
+      if (redCar.collisionCount < carCount) {
         if (redCar.small) redCar.bigger();
       } else messageLabel.text = 'Too many collisions.';
     });
     document.onMouseMove.listen((MouseEvent e) {
       if (redCar.movable) {
-        redCar.x = e.offset.x - Vehicle.WIDTH  / 2;
-        redCar.y = e.offset.y - Vehicle.HEIGHT / 2;
+        redCar.x = e.offset.x - Vehicle.regularWidth  / 2;
+        redCar.y = e.offset.y - Vehicle.regularHeight / 2;
         if (redCar.x > canvas.width)  redCar.x = canvas.width - 20;
         if (redCar.x < 0)             redCar.x = 20 - redCar.width;
         if (redCar.y > canvas.height) redCar.y = canvas.height - 20;
@@ -35,7 +35,7 @@ class Board {
       } else if (redCar.collision) {
         collisionSound.play();
         redCar.collision = false;
-        var car = new Car(canvas.width, canvas.height, SPEED_LIMIT);
+        var car = new Car(canvas.width, canvas.height, speedLimit);
         cars.add(car);
         carCountLabel.text = cars.count.toString();
         collisionCountLabel.text = redCar.collisionCount.toString();

@@ -1,21 +1,22 @@
 part of car_collisions;
 
 abstract class Car {
-  static const num WIDTH = 75;
-  static const num HEIGHT = 30;
-
-  num distanceLimitWidth;
-  num distanceLimitHeight;
-
+  static const num regularWidth = 75;
+  static const num regularHeight = 30;
+  static const String regularColorCode = '#ff0000';
+  
   num width;
   num height;
+  num distanceLimitWidth;
+  num distanceLimitHeight;
   num x;
   num y;
   String colorCode;
 
   Car(this.distanceLimitWidth, this.distanceLimitHeight) {
-    width = WIDTH;
-    height = HEIGHT;
+    width = regularWidth;
+    height = regularHeight;
+    colorCode = regularColorCode;
     x = randomNum(distanceLimitWidth - width);
     y = randomNum(distanceLimitHeight - height);
   }
@@ -71,26 +72,23 @@ class NonRedCar extends Car {
 }
 
 class RedCar extends Car {
-  static const num SMALL_WIDTH = 35;
-  static const num SALL_HEIGHT = 14;
-  static const String BIG_COLOR_CODE = '#ff0000';
-  static const String SMAL_COLOR_CODE = '#000000';
+  static const num smallWidth = 35;
+  static const num smallHeight = 14;
+  static const String smallColorCode = '#000000';
 
   bool small = false;
   bool get big => !small;
   bool movable = true;
 
   RedCar(num distanceLimitWidth, num distanceLimitHeight) :
-    super(distanceLimitWidth, distanceLimitHeight) {
-    colorCode = BIG_COLOR_CODE;
-  }
+    super(distanceLimitWidth, distanceLimitHeight);
 
   bigger() {
     if (small) {
       small = false;
-      width = Car.WIDTH;
-      height = Car.HEIGHT;
-      colorCode = BIG_COLOR_CODE;
+      width = 75;
+      height = 30;
+      colorCode = Car.regularColorCode;
       movable = true;
     }
   }
@@ -98,9 +96,9 @@ class RedCar extends Car {
   smaller(Car car) {
     if (big) {
       small = true;
-      width = SMALL_WIDTH;
-      height = SALL_HEIGHT;
-      colorCode = SMAL_COLOR_CODE;
+      width = smallWidth;
+      height = smallHeight;
+      colorCode = smallColorCode;
       movable = false;
     }
   }
