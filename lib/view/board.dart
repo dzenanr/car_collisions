@@ -33,6 +33,7 @@ class Board {
         if (redCar.y > canvas.height) redCar.y = canvas.height - 20;
         if (redCar.y < 0)             redCar.y = 20 - redCar.height;
       } else if (redCar.collision) {
+        collisionSound.load();
         collisionSound.play();
         redCar.collision = false;
         var car = new Car(canvas.width, canvas.height, speedLimit);
